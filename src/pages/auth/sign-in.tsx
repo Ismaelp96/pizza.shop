@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,8 +19,13 @@ export function SignIn() {
 		formState: { isSubmitting },
 	} = useForm<SignInForm>();
 	async function handleSignIn(data: SignInForm) {
-		console.log(data);
 		await new Promise((resolve) => setTimeout(resolve, 2000));
+		toast.success('Enviamos um link de autenticação para seu e-mail.', {
+			action: {
+				label: 'Reenviar',
+				onClick: () => handleSignIn(data),
+			},
+		});
 	}
 	return (
 		<>

@@ -54,10 +54,7 @@ export function SignIn() {
 								{...register('email')}
 							/>
 						</div>
-						<Button
-							type='submit'
-							className='w-full cursor-pointer'
-							disabled={isSubmitting}>
+						<Button type='submit' className='w-full' disabled={isSubmitting}>
 							{isSubmitting ? 'Entrando...' : 'Acessar painel'}
 						</Button>
 					</form>

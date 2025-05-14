@@ -79,10 +79,7 @@ export function SignUp() {
 							<Input id='phone' type='tel' {...register('phone')} />
 						</div>
 
-						<Button
-							type='submit'
-							className='w-full cursor-pointer'
-							disabled={isSubmitting}>
+						<Button type='submit' className='w-full' disabled={isSubmitting}>
 							{isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
 						</Button>
 						<p className='text-muted-foreground px-6 text-center text-sm leading-relaxed'>

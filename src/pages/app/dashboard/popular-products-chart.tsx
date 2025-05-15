@@ -95,7 +95,7 @@ export function PopularProductsChart() {
 									<Cell
 										key={`cell-${i}`}
 										fill={COLORS[i]}
-										className='stroke-background transition-opacity hover:opacity-85'
+										className='stroke-card transition-opacity hover:opacity-85'
 									/>
 								);
 							})}

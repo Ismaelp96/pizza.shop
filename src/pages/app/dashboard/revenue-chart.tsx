@@ -5,6 +5,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import { DollarSign } from 'lucide-react';
 import {
 	ResponsiveContainer,
 	LineChart,
@@ -48,13 +49,16 @@ const data = [
 
 export function RevenueChart() {
 	return (
-		<Card className='col-span-6 grid'>
+		<Card className='col-span-6'>
 			<CardHeader className='flex flex-row items-center justify-between pb-8'>
-				<div className='space-y-1'>
-					<CardTitle className='text-base font-medium'>
-						Receita no período
-					</CardTitle>
-					<CardDescription>Receita diária no período</CardDescription>
+				<div className='flex w-full items-center justify-between'>
+					<div className='space-y-1'>
+						<CardTitle className='text-base font-medium'>
+							Receita no período
+						</CardTitle>
+						<CardDescription>Receita diária no período</CardDescription>
+					</div>
+					<DollarSign className='text-muted-foreground h-4 w-4' />
 				</div>
 			</CardHeader>
 			<CardContent>

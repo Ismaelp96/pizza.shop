@@ -1,0 +1,108 @@
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BarChart } from 'lucide-react';
+import { ResponsiveContainer, PieChart, Pie, Cell, Text } from 'recharts';
+import colors from 'tailwindcss/colors';
+
+const COLORS = [
+	colors.sky[500],
+	colors.amber[500],
+	colors.violet[500],
+	colors.emerald[500],
+	colors.rose[500],
+];
+
+const data = [
+	{
+		product: 'Pepperoni',
+		amount: 40,
+	},
+	{
+		product: 'Mussarela',
+		amount: 30,
+	},
+	{
+		product: 'Marguerita',
+		amount: 50,
+	},
+	{
+		product: 'Frango c/ catupiry',
+		amount: 16,
+	},
+	{
+		product: 'Calabreza',
+		amount: 24,
+	},
+];
+
+export function PopularProductsChart() {
+	return (
+		<Card className='col-span-3 grid'>
+			<CardHeader className='flex flex-row items-center justify-between pb-8'>
+				<div className='flex w-full items-center justify-between'>
+					<CardTitle className='text-base font-medium'>
+						Produtos Populares
+					</CardTitle>
+					<BarChart className='text-muted-foreground h-4 w-4'>
+						Receita diária no período
+					</BarChart>
+				</div>
+			</CardHeader>
+			<CardContent>
+				<ResponsiveContainer width='100%' height={240}>
+					<PieChart data={data} style={{ fontSize: 12 }}>
+						<Pie
+							data={data}
+							type='linear'
+							dataKey='amount'
+							nameKey='product'
+							cx='50%'
+							cy='50%'
+							outerRadius={86}
+							innerRadius={64}
+							strokeWidth={8}
+							labelLine={false}
+							label={({
+								cx,
+								cy,
+								midAngle,
+								innerRadius,
+								outerRadius,
+								value,
+								index,
+							}) => {
+								const RADIAN = Math.PI / 180;
+								const radius = 12 + innerRadius + (outerRadius - innerRadius);
+								const x = cx + radius * Math.cos(-midAngle * RADIAN);
+								const y = cy + radius * Math.sin(-midAngle * RADIAN);
+								return (
+									<Text
+										x={x}
+										y={y}
+										className='fill-muted-foreground text-xs'
+										textAnchor={x > cx ? 'start' : 'end'}
+										dominantBaseline='central'>
+										{`${
+											data[index].product.length > 12
+												? data[index].product.substring(0, 12).concat('...')
+												: data[index].product
+										}
+										(${value})`}
+									</Text>
+								);
+							}}>
+							{data.map((_, i) => {
+								return (
+									<Cell
+										key={`cell-${i}`}
+										fill={COLORS[i]}
+										className='stroke-background transition-opacity hover:opacity-85'
+									/>
+								);
+							})}
+						</Pie>
+					</PieChart>
+				</ResponsiveContainer>
+			</CardContent>
+		</Card>
+	);
+}

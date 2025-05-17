@@ -28,7 +28,9 @@ export function OrderStatus({ status }: OrderStatusProps) {
 			{status === 'delivered' && (
 				<span className='h-2 w-2 rounded-full bg-emerald-500 dark:bg-emerald-600' />
 			)}
-			{['processing', 'delivering'].includes(status)}
+			{['processing', 'delivering'].includes(status) && (
+				<span className='h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-600' />
+			)}
 			<span className='text-muted-foreground font-medium'>
 				{OrderStatusMap[status]}
 			</span>

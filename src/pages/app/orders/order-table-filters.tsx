@@ -71,9 +71,10 @@ export function OrderTableFilters() {
 		reset({
 			orderId: '',
 			customerName: '',
-			status: '',
+			status: 'all',
 		});
 	}
+
 	return (
 		<form
 			className='flex items-center gap-2'

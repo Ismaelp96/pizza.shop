@@ -4,13 +4,14 @@ import { ptBR } from 'date-fns/locale';
 import { formatDistanceToNow } from 'date-fns';
 import { ArrowRight, Search, X } from 'lucide-react';
 
+import type { GetOrdersResponse } from '@/api/get-orders';
+import { cancelOrder } from '@/api/cancel-order';
+
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { OrderDetails } from './order-details';
 import { OrderStatus } from '@/components/order-status';
-import { cancelOrder } from '@/api/cancel-order';
-import type { GetOrdersResponse } from '@/api/get-orders';
 
 interface OrderTableRowProps {
 	order: {
@@ -23,8 +24,8 @@ interface OrderTableRowProps {
 }
 
 export function OrderTableRow({ order }: OrderTableRowProps) {
-	const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 	const queryClient = useQueryClient();
+	const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
 	const { mutateAsync: cancelOrderFn } = useMutation({
 		mutationFn: cancelOrder,
@@ -51,6 +52,7 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
 			});
 		},
 	});
+
 	return (
 		<TableRow>
 			<TableCell>
@@ -94,9 +96,9 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
 					disabled={!['pending', 'processing'].includes(order.status)}
 					onClick={() => cancelOrderFn({ orderId: order.orderId })}
 					variant='ghost'
-					size='xs'>
-					<X className='h-3 w-3' />
-					Cancelar
+					size='xs' className={order.status === 'canceled' ? 'text-destructive dark:text-destructive' : ''}>
+					{order.status !== 'canceled' && <X className='h-3 w-3' />}
+					{order.status === 'canceled' ?' Cancelado' : 'Cancelar'}
 				</Button>
 			</TableCell>
 		</TableRow>

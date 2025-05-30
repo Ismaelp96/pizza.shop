@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { DateRangerPicker } from '@/components/date-ranger-picker';
+import { Loader2 } from 'lucide-react';
 
 export function RevenueChart() {
 	const [dateRange, setDateRange] = useState<DateRange | undefined>({
@@ -64,7 +65,7 @@ export function RevenueChart() {
 				</div>
 			</CardHeader>
 			<CardContent>
-				{chartData && (
+				{chartData ? (
 					<ResponsiveContainer width='100%' height={240}>
 						<LineChart data={chartData} style={{ fontSize: 12 }}>
 							<XAxis
@@ -95,6 +96,10 @@ export function RevenueChart() {
 							/>
 						</LineChart>
 					</ResponsiveContainer>
+				) : (
+					<div className='flex h-[240px] w-full items-center justify-center'>
+						<Loader2 className='text-muted-foreground h-8 w-8 animate-spin' />
+					</div>
 				)}
 			</CardContent>
 		</Card>
